@@ -34,7 +34,7 @@ function App() {
 
 
     // Send form data + signatureDataUrl to backend
-    await fetch('http://localhost:3000/api/sendContract', {
+    await fetch('https://wash4kidz.onrender.com', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ ...form, signatureDataUrl }),
