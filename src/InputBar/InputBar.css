@@ -1,0 +1,35 @@
+.large-input {
+    width: 187px;
+    height: 26px;
+    flex-shrink: 0;
+    border-radius: 8px;
+    border: 2px solid #E4E4E7;
+    background: #FFF;
+    box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.05);
+    
+    display: flex;
+    padding: var(--padding-base, 2px) var(--padding-2xl, 12px);
+    align-items: center;
+    align-self: stretch;
+    color: var(--Content-contentTertiary, #000000);
+
+    /* Paragraph/Base */
+    font-family: Peralta;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 24px; /* 150% */
+}
+
+.large-input:focus {
+  outline: none;
+  ring-color: #3b82f6; /* Equivalent to focus:ring-blue-500 in Tailwind */
+  border-color: #3b82f6; /* Equivalent to focus:border-blue-500 in Tailwind */
+}
+
+.large-input.dark {
+  background-color: #374151; /* Equivalent to dark:bg-gray-700 in Tailwind */
+  border-color: #4b5563; /* Equivalent to dark:border-gray-600 in Tailwind */
+  placeholder-color: #9ca3af; /* Equivalent to dark:placeholder-gray-400 in Tailwind */
+  color: #ffffff; /* Equivalent to dark:text-white in Tailwind */
+}

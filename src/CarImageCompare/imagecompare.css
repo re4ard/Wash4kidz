@@ -1,0 +1,136 @@
+/* Wrapper and image setup */
+.wrapper {
+  position: relative;
+  height: 309px; /* Adjust as needed */
+  width: 463.36px;
+  overflow: hidden;
+  background: #fff;
+  border-radius: 25px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+}
+
+.images {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  position: relative;
+}
+
+.img-1,
+.img-2 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-repeat: no-repeat;
+  background-size: auto 100%;
+  background-position: left center;
+}
+
+/* Reveal image wrapper (you control this width via JS) */
+.img-2-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 50%;
+  overflow: hidden;
+  z-index: 2;
+}
+
+/* === Slider track === */
+.slider {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+}
+
+/* Range input: fills the whole slider */
+.slider input[type="range"] {
+  width: 100%;
+  height: 100%;
+  background: none;
+  appearance: none;
+  -webkit-appearance: none;
+  margin: 0;
+  cursor: col-resize;
+
+  /* ✅ Touch-friendly */
+  -webkit-tap-highlight-color: transparent;
+  touch-action: pan-y;
+}
+
+/* ✅ Wide thumb (touch-friendly) */
+.slider input::-webkit-slider-thumb {
+  height: 100%;
+  width: 44px;
+  background: transparent;
+  -webkit-appearance: none;
+  cursor: ew-resize;
+  border: none;
+}
+
+.slider input::-moz-range-thumb {
+  height: 100%;
+  width: 44px;
+  background: transparent;
+  border: none;
+  cursor: ew-resize;
+}
+
+/* === Drag handle (circle) === */
+.drag-line {
+  width: 44px;
+  height: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 11;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* ✅ Prevent it from blocking slider input */
+  pointer-events: auto; /* ✅ allow interaction */
+  touch-action: none;
+  cursor: ew-resize;
+}
+.drag-line * {
+  pointer-events: auto;
+}
+
+.drag-line span {
+  height: 38px;
+  width: 38px;
+  border: 3px solid #fff;
+  border-radius: 50%;
+  background: transparent;
+  position: relative;
+}
+
+/* Arrows inside circle */
+.drag-line span::before,
+.drag-line span::after {
+  position: absolute;
+  content: "";
+  top: 50%;
+  border: 9px solid transparent;
+  border-bottom-width: 0;
+  border-right-width: 0;
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.drag-line span::before {
+  left: 40%;
+  border-left-color: #fff;
+}
+
+.drag-line span::after {
+  left: 60%;
+  border-top-color: #fff;
+}

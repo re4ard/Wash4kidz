@@ -1,0 +1,171 @@
+@import url('https://fonts.googleapis.com/css2?family=Peralta&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap');
+
+.Web-Container {
+  width: 1080px;
+  height: 2779px;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  background-color: #F8F8F8;
+}
+.Navbar {
+  width: 1080px;
+  height: 97px;
+  background: linear-gradient(180deg, #1D8ACE 0%, #6DB3DE 100%);
+}
+.Logo {
+  position: absolute;
+  left: 23px;
+  top: 15px;
+  width: 116px;
+  height: 68px;
+}
+
+.NavItems {
+  display: flex;
+  gap: 100px;
+  position: absolute;
+  left: 423px;
+  top: 37px;
+}
+
+.NavItem {
+  color: white;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 23px;
+  font-family: Peralta;
+  position: relative;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.NavItem::after {
+  content: '';
+  position: absolute;
+  bottom: -37px;         /* Adjust this to control vertical spacing */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 3px;
+  background-color: white;
+  transition: width 0.3s ease;
+}
+
+/* On hover or selected */
+.NavItem:hover::after,
+.NavItem.selected::after {
+  width: 96px;
+}
+
+.CarImage1 {
+  position: absolute;
+  left: 63px;
+  top: 146px;
+}
+.CarImage2 {
+  position: absolute;
+  left: 553px;
+  top: 146px;
+}
+.CarImage3 {
+  position: absolute;
+  left: 63px;
+  top: 507px;
+}
+.CarImage4 {
+  position: absolute;
+  left: 553px;
+  top: 507px;
+}
+.inputs {
+  position: absolute;
+  width: 892px;
+  height: 94px;
+  left: 82px;
+  top: 878px;
+  box-shadow: 0px 11px 21.899999618530273px rgba(0, 0, 0, 0.25);
+  border-radius: 19px;
+  background-color: white;
+}
+.FirstName {
+  position: absolute;
+  left: 32px;
+  top: 34px;
+}
+.LastName {
+  position: absolute;
+  left: 348px;
+  top: 34px;
+}
+.Email {
+  position: absolute;
+  left: 640px;
+  top: 34px;
+}
+.Contract {
+  position: absolute;
+  left: 39px;
+  top: 1031px;
+}
+.Contract img {
+  width: 982px;
+  height: 1389px;
+}
+.Signature {
+  border: 1px solid black;
+  width: 705px;
+  height: 129px;
+  position: absolute;
+  left: 178px;
+  top: 2450px;
+  border-radius: 9px;
+  background-color: white;
+}
+.clearbtn {
+  position: absolute;
+  left: 417px;
+  top: 2597px;
+  width: 106px;
+  height: 24px;
+  font-family: Peralta;
+  background-color: #94D7FC;
+  border-radius: 9px;
+  color: white;
+  font-size: 16px;
+  font-weight: 400px;
+  line-height: 24px;
+}
+.submitbtn {
+  position: absolute;
+  left: 537px;
+  top: 2597px;
+  width: 106px;
+  height: 24px;
+  font-family: Peralta;
+  background-color: #94D7FC;
+  border-radius: 9px;
+  color: white;
+  font-size: 16px;
+  font-weight: 400px;
+  line-height: 24px;
+}
+.footer {
+  width: 1080px;
+  height: 97px;
+  position: absolute;
+  top: 2682px;
+  background: linear-gradient(0deg, #1D8ACE 0%, #6DB3DE 100%);
+}
+.footer-links {
+  position: absolute;
+  left: 282px;
+  top: 39px;
+}
+.footer-links a {
+  text-decoration: none;
+  color: white;
+  font-family: sans-serif;
+  text-align: center;
+  margin-left: 50px;
+}

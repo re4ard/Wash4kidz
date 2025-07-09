@@ -1,0 +1,18 @@
+{
+  "name": "wash4kidz-backend",
+  "version": "1.0.0",
+  "main": "sendContract.js",
+  "scripts": {
+    "start": "node sendContract.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "nodemailer": "^7.0.5",
+    "pdf-lib": "^1.17.1"
+  }
+}
