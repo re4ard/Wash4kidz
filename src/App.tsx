@@ -16,31 +16,38 @@ function App() {
   const sigPadRef = useRef(null);
   const [form, setForm] = useState({ firstName: '', lastName: '', email: '' });
 
-  const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  setForm({ ...form, [e.target.name]: e.target.value });
+};
 
-  const clearSignature = () => {
+const clearSignature = () => {
+  if (sigPadRef.current) {
     sigPadRef.current.clear();
-  };
+  }
+};
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (sigPadRef.current.isEmpty()) {
-      alert('Please provide a signature');
-      return;
-    }
-    const signatureDataUrl = sigPadRef.current.getCanvas().toDataURL('image/png');
+const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
 
+  if (!sigPadRef.current || sigPadRef.current.isEmpty()) {
+    alert('Please provide a signature');
+    return;
+  }
 
-    // Send form data + signatureDataUrl to backend
-    await fetch('https://wash4kidz.onrender.com', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ ...form, signatureDataUrl }),
-    });
-    alert('Contract sent! Check your email.');
-  };
+  const signatureDataUrl = sigPadRef.current
+    .getTrimmedCanvas()
+    .toDataURL('image/png');
+
+  // ✅ FIXED: Added the correct route '/api/sendContract'
+  await fetch('https://wash4kidz.onrender.com/api/sendContract', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ ...form, signatureDataUrl }),
+  });
+
+  alert('Contract sent! Check your email.');
+};
+
 
 
   return (
