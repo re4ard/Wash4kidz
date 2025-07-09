@@ -1,6 +1,6 @@
 const express = require('express');
 const nodemailer = require('nodemailer');
-const { PDFDocument, rgb } = require('pdf-lib');
+const { PDFDocument } = require('pdf-lib');
 const cors = require('cors');
 const fs = require('fs');
 const path = require('path');
@@ -14,46 +14,49 @@ app.post('/api/sendContract', async (req, res) => {
   try {
     const { firstName, lastName, email, signatureDataUrl } = req.body;
 
-    // Load your existing PDF file (load it from disk or URL)
+    console.log('📥 Received contract request for:', email);
+
+    // Check if env variables exist
+    if (!process.env.GMAIL_USER || !process.env.GMAIL_PASS) {
+      console.error('❌ Missing Gmail credentials in environment variables');
+      return res.status(500).send('Server email configuration error');
+    }
+
+    // Load contract PDF
     const pdfPath = path.resolve(__dirname, 'contract.pdf');
+    console.log('📄 Loading contract from:', pdfPath);
     const existingPdfBytes = await fs.promises.readFile(pdfPath);
 
+    // Prepare PDF
     const pdfDoc = await PDFDocument.load(existingPdfBytes);
+    const firstPage = pdfDoc.getPages()[0];
 
-    const pages = pdfDoc.getPages();
-    const firstPage = pages[0];
-
-    // Convert signatureDataUrl (base64) to Uint8Array
     const base64Signature = signatureDataUrl.split(',')[1];
     const signatureImage = await pdfDoc.embedPng(base64Signature);
-
-    // Decide where to place the signature (x, y coordinates and size)
     const { width, height } = signatureImage.scale(0.5);
 
-    // Example position, change according to your contract layout:
     firstPage.drawImage(signatureImage, {
-        x: 100,
-        y: 150,
-        width: 200,
-        height: 100,
-      });
+      x: 100,
+      y: 150,
+      width: 200,
+      height: 100,
+    });
 
     const pdfBytes = await pdfDoc.save();
 
-    // Set up nodemailer
+    // Configure Gmail transport
     const transporter = nodemailer.createTransport({
-    service: 'Gmail',
-    auth: {
-      user: process.env.GMAIL_USER,
-      pass: process.env.GMAIL_PASS,
-  },
-});
+      service: 'Gmail',
+      auth: {
+        user: process.env.GMAIL_USER,
+        pass: process.env.GMAIL_PASS,
+      },
+    });
 
-      
+    console.log('📧 Sending email to:', email);
 
-    // Send email with signed PDF attached
-    await transporter.sendMail({
-      from: '"wash4kidz" <91864b002@smtp-brevo.com>',
+    const info = await transporter.sendMail({
+      from: `"Wash4Kidz" <${process.env.GMAIL_USER}>`, // must match Gmail account
       to: email,
       subject: 'Your Signed Contract',
       html: `
@@ -69,13 +72,13 @@ app.post('/api/sendContract', async (req, res) => {
         },
       ],
     });
-    
-    console.log('Email sent');
+
+    console.log('✅ Email sent:', info.messageId);
     res.status(200).send('Contract sent via email!');
   } catch (err) {
-    console.error(err);
+    console.error('❌ Error in /api/sendContract:', err);
     res.status(500).send('Error processing contract.');
   }
 });
 
-app.listen(3000, () => console.log('Server running on port 3000'));
+app.listen(3000, () => console.log('🚀 Server running on port 3000'));
