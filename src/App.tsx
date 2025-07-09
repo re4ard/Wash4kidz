@@ -8,47 +8,50 @@ import img2 from './assets/image2.jpg';
 import contractimg from './assets/contract.jpg'
 import './App.css';
 
+// TypeScript needs this for the signature canvas ref
+// Use the type from the library or just 'any' if no types available
+type SigCanvasType = SignatureCanvas | null;
+
 function App() {
   const [selected, setSelected] = useState('About');
 
   const items = ['About', 'Review', 'Results', 'Pricing'];
   
-  const sigPadRef = useRef(null);
+  // Fix typing here so TypeScript knows what sigPadRef.current is
+  const sigPadRef = useRef<SigCanvasType>(null);
+
   const [form, setForm] = useState({ firstName: '', lastName: '', email: '' });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  setForm({ ...form, [e.target.name]: e.target.value });
-};
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
 
-const clearSignature = () => {
-  if (sigPadRef.current) {
-    sigPadRef.current.clear();
-  }
-};
+  const clearSignature = () => {
+    if (sigPadRef.current) {
+      sigPadRef.current.clear();
+    }
+  };
 
-const handleSubmit = async (e: React.FormEvent) => {
-  e.preventDefault();
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
 
-  if (!sigPadRef.current || sigPadRef.current.isEmpty()) {
-    alert('Please provide a signature');
-    return;
-  }
+    if (!sigPadRef.current || sigPadRef.current.isEmpty()) {
+      alert('Please provide a signature');
+      return;
+    }
 
-  const signatureDataUrl = sigPadRef.current
-    .getTrimmedCanvas()
-    .toDataURL('image/png');
+    const signatureDataUrl = sigPadRef.current
+      .getTrimmedCanvas()
+      .toDataURL('image/png');
 
-  // ✅ FIXED: Added the correct route '/api/sendContract'
-  await fetch('https://wash4kidz.onrender.com/api/sendContract', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ ...form, signatureDataUrl }),
-  });
+    await fetch('https://wash4kidz.onrender.com/api/sendContract', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ ...form, signatureDataUrl }),
+    });
 
-  alert('Contract sent! Check your email.');
-};
-
-
+    alert('Contract sent! Check your email.');
+  };
 
   return (
     <div className="Web-Container">
@@ -101,14 +104,13 @@ const handleSubmit = async (e: React.FormEvent) => {
               <InputBar placeholder='Last Name' name="lastName" value={form.lastName} onChange={handleChange}></InputBar>
         </div>
         <div className="Email">
-              <InputBar placeholder='Email'  name="email" value={form.email}onChange={handleChange}></InputBar>
+              <InputBar placeholder='Email'  name="email" value={form.email} onChange={handleChange}></InputBar>
         </div>
       </div>
 
       <div className="Contract">
         <img src={contractimg}></img>
       </div>
-
 
       <div className='Signature'>
         <SignatureCanvas
@@ -128,17 +130,6 @@ const handleSubmit = async (e: React.FormEvent) => {
           <a href="">©2025 Wash4Kidz</a>
         </div>
       </div>
-
-
-
-
- 
-
-
-  
-
-
-
     </div>
   );
 }
