@@ -15,7 +15,8 @@ app.post('/api/sendContract', async (req, res) => {
     const { firstName, lastName, email, signatureDataUrl } = req.body;
 
     // Load your existing PDF file (load it from disk or URL)
-    const existingPdfBytes = await fs.promises.readFile('./server/contract.pdf');
+    const pdfPath = path.resolve(__dirname, 'contract.pdf');
+    const existingPdfBytes = await fs.promises.readFile(pdfPath);
 
     const pdfDoc = await PDFDocument.load(existingPdfBytes);
 
