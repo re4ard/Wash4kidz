@@ -44,7 +44,7 @@ function App() {
       .getTrimmedCanvas()
       .toDataURL('image/png');
 
-    await fetch('https://wash4kidz.onrender.com/api/sendContract', {
+    await fetch('https://wash4kidz.onrender.com', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ ...form, signatureDataUrl }),
