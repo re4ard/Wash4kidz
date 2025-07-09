@@ -62,7 +62,7 @@ app.post('/api/sendContract', async (req, res) => {
       html: `
         <p>Hi ${firstName},</p>
         <p>Thank you for signing the contract. Please find your signed copy attached.</p>
-        <p><a href="https://yourwebsite.com/review">Leave a review here</a></p>
+        <p>Reply to this email if you have any questions.</p>
       `,
       attachments: [
         {
