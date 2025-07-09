@@ -42,13 +42,13 @@ app.post('/api/sendContract', async (req, res) => {
 
     // Set up nodemailer
     const transporter = nodemailer.createTransport({
-        host: 'smtp-relay.brevo.com',
-        port: 587,
-        auth: {
-          user: process.env.SMTP_USER,
-          pass: process.env.SMTP_PASS,
-        },
-      });
+    service: 'Gmail',
+    auth: {
+      user: process.env.GMAIL_USER,
+      pass: process.env.GMAIL_PASS,
+  },
+});
+
       
 
     // Send email with signed PDF attached
