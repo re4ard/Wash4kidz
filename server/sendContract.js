@@ -36,10 +36,10 @@ app.post('/api/sendContract', async (req, res) => {
     const { width, height } = signatureImage.scale(0.5);
 
     firstPage.drawImage(signatureImage, {
-      x: 100,
-      y: 150,
-      width: 200,
-      height: 100,
+      x: 233,
+      y: 45,
+      width: 100,
+      height: 50,
     });
 
     const pdfBytes = await pdfDoc.save();
